@@ -8,7 +8,7 @@ const course_logistic_details = event => event && `${event.getStartTime()}~${eve
 
 function get_courses_from_calendar(calendar, course_names) {
     const now = new Date(),
-        oneWeekFromNow = new Date(now.getTime() + 604800 * 1000);
+        oneWeekFromNow = new Date(now.getTime() + (604800 - 86400) * 1000);
 
     return course_names.map(
         course_name => calendar.getEvents(
@@ -55,7 +55,6 @@ function report_course_movements() {
     let modified = false,
         htmlOutput = HtmlService.createHtmlOutput(MAIL_CONTENT);
 
-    Logger.log(mva_minus_local);
     [...new Set([
         ...Object.keys(mva_minus_local),
         ...Object.keys(local_minus_mva)
@@ -65,8 +64,8 @@ function report_course_movements() {
                 modified = true;
                 let options = [
                     local_minus_mva[title][0].getStartTime() == mva_minus_local[title][0].getStartTime(),
-                    local_minus_mva[title][0].getLocation() == mva_minus_local[title][0].getLocation()
-                        && local_minus_mva[title][0].getDescription() == mva_minus_local[title][0].getDescription(),
+                    local_minus_mva[title][0].getLocation() == mva_minus_local[title][0].getLocation() &&
+                    local_minus_mva[title][0].getDescription() == mva_minus_local[title][0].getDescription(),
                 ];
                 htmlOutput.append(
                     `The following course was modified:<br/>
@@ -113,7 +112,7 @@ function report_course_movements() {
             msgPlain = htmlOutput.getContent().replace(/\<br\/\>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
         Logger.log(`Sending a mail to ${MY_MAIL_ADDRESS}.`);
         GmailApp.sendEmail(MY_MAIL_ADDRESS, "MVA planning update", msgPlain, {
-            htmlBody: msgHtml
+          htmlBody: msgHtml
         });
     }
 }
