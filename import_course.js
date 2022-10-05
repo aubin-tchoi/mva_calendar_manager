@@ -14,6 +14,7 @@
         local_calendar = retrieve_local_calendar(),
         now = new Date(),
         sixMonthsFromNow = new Date(now.getTime() + 6 * 2628000 * 1000);
+    let counter = 0;
 
     COURSES.forEach(
         course_name => {
@@ -34,10 +35,12 @@
                             location: ev.getLocation(),
                         }
                     );
+                    counter++;
                 }
             )
         }
     );
+    Logger.log(`Added ${counter} calendar events.`);
 }
 
 
@@ -45,6 +48,7 @@ function delete_courses() {
     const local_calendar = retrieve_local_calendar(),
         now = new Date(),
         sixMonthsFromNow = new Date(now.getTime() + 6 * 2628000 * 1000);
+    let counter = 0;
 
     COURSES.forEach(
         course_name => {
@@ -55,8 +59,10 @@ function delete_courses() {
                 }
             ).forEach(ev => {
                 Logger.log(`Deleting event ${ev.getTitle()} on ${ev.getStartTime().toLocaleDateString('en-US')} from local calendar.`);
-                ev.deleteEvent()
+                ev.deleteEvent();
+                counter++;
             });
         }
     );
+    Logger.log(`Deleted ${counter} calendar events.`);
 }
