@@ -33,3 +33,5 @@ You can find all the parameters in file `constants.js`.
 ### Implementation
 
 The files are imported alphabetically, meaning that if there are 3 files names `a.js`, `b.js` and `c.js`, in file `c` you can access the content of any file, in file `b` only the content of files `b` and `a` and in file `a` only the content from within the file. This is actually while the file `base_utils.js` is not named `utils.js`.
+
+You can use `clasp` to sync your local clone of the project with the Apps Script project: see https://developers.google.com/apps-script/guides/clasp 
