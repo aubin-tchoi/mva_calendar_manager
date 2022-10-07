@@ -63,9 +63,9 @@ function report_course_movements() {
             if (local_minus_mva[title].length == 1 && mva_minus_local[title].length == 1) {
                 modified = true;
                 let options = [
-                    local_minus_mva[title][0].getStartTime() == mva_minus_local[title][0].getStartTime(),
-                    local_minus_mva[title][0].getLocation() == mva_minus_local[title][0].getLocation() &&
-                    local_minus_mva[title][0].getDescription() == mva_minus_local[title][0].getDescription(),
+                    local_minus_mva[title][0].getStartTime() != mva_minus_local[title][0].getStartTime(),
+                    local_minus_mva[title][0].getLocation() != mva_minus_local[title][0].getLocation()
+                        || local_minus_mva[title][0].getDescription() != mva_minus_local[title][0].getDescription(),
                 ];
                 htmlOutput.append(
                     `The following course was modified:<br/>
@@ -112,7 +112,7 @@ function report_course_movements() {
             msgPlain = htmlOutput.getContent().replace(/\<br\/\>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
         Logger.log(`Sending a mail to ${MY_MAIL_ADDRESS}.`);
         GmailApp.sendEmail(MY_MAIL_ADDRESS, "MVA planning update", msgPlain, {
-          htmlBody: msgHtml
+            htmlBody: msgHtml
         });
     }
 }
