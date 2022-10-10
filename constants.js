@@ -12,9 +12,9 @@
     "Analyse topologique de données",
     "Image denoising",
     "Computational statistics",
-    "Responsible Machine Learning",
     "Méthodes mathématiques pour les neurosciences"
 ];
+
 
 /**
  * ID of the MVA Google Calendar.
