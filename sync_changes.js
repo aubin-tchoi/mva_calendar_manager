@@ -55,11 +55,28 @@ function report_course_movements() {
                 local_minus_mva[title][0].setDescription(
                     mva_minus_local[title][0].getDescription()
                 );
-            } else if (local_minus_mva[title] === undefined && mva_minus_local[title]?.length > 0) {
+            } else if (
+                local_minus_mva[title] === undefined
+                && mva_minus_local[title]?.length > 0
+                && !title.startsWith("ANNULE - ")
+            ) {
                 modified = true;
                 htmlOutput.append(
                     `The following course was added:<br/>
                 &nbsp;- ${mva_minus_local[title].map(get_course_info).join("<br/>&nbsp;- ")}<br/><br/>`
+                );
+                Logger.log(`Adding course info for ${title}.`);
+                mva_minus_local[title].forEach(
+                    ev => {
+                        local_calendar.createEvent(
+                            ev.getTitle(),
+                            ev.getStartTime(),
+                            ev.getEndTime(), {
+                                description: ev.getDescription(),
+                                location: ev.getLocation(),
+                            }
+                        );
+                    }
                 );
             } else if (local_minus_mva[title]?.length > 0 && mva_minus_local[title] === undefined) {
                 modified = true;
@@ -67,6 +84,8 @@ function report_course_movements() {
                     `The following course was removed:<br/>
                 &nbsp;- ${local_minus_mva[title].map(get_course_info).join("<br/>&nbsp;- ")}<br/><br/>`
                 );
+                Logger.log(`Removing course event for ${title}.`);
+                local_minus_mva[title].forEach(ev => {ev.deleteEvent()});
             } else if (local_minus_mva[title]?.length > 0 && mva_minus_local[title]?.length > 0) {
                 modified = true;
                 htmlOutput.append(
