@@ -4,10 +4,10 @@ function retrieve_local_calendar(calendar_name = "MVA") {
      */
     const calendars = CalendarApp.getCalendarsByName(calendar_name).filter(calendar => calendar.isOwnedByMe());
 
-    if (calendars.length == 0) {
+    if (calendars.length === 0) {
         Logger.log(`Creating a new calendar under ${calendar_name}`);
         return CalendarApp.createCalendar(calendar_name);
-    } else if (calendars.length == 1) {
+    } else if (calendars.length === 1) {
         return calendars[0];
     } else {
         Logger.log(`Multiple calendars found with the name "${calendar_name}", using the first one found.`);

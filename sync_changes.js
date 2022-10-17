@@ -22,9 +22,9 @@ function get_courses_from_calendar(calendar, course_names) {
 
 const get_calendar_diff = (left_calendar_events, right_calendar_events) => left_calendar_events.filter(
     left_event => !right_calendar_events.filter(
-        right_event => right_event.getTitle() == left_event.getTitle()
+        right_event => right_event.getTitle() === left_event.getTitle()
     ).some(
-        right_event => course_logistic_details(right_event) == course_logistic_details(left_event)
+        right_event => course_logistic_details(right_event) === course_logistic_details(left_event)
     )
 );
 
@@ -61,19 +61,19 @@ function report_course_movements() {
         ...Object.keys(local_minus_mva)
     ])].forEach(
         title => {
-            if (local_minus_mva[title].length == 1 && mva_minus_local[title].length == 1) {
+            if (local_minus_mva[title].length === 1 && mva_minus_local[title].length === 1) {
                 modified = true;
                 htmlOutput.append(
                     `The following course was modified:<br/>
                 &nbsp;- Old course: ${get_course_info(
                       local_minus_mva[title][0],
-                      local_minus_mva[title][0].getStartTime() == mva_minus_local[title][0].getStartTime(),
-                      local_minus_mva[title][0].getLocation() == mva_minus_local[title][0].getLocation(),
+                      local_minus_mva[title][0].getStartTime() === mva_minus_local[title][0].getStartTime(),
+                      local_minus_mva[title][0].getLocation() === mva_minus_local[title][0].getLocation(),
                   )}<br/>
                 &nbsp;- New course: ${get_course_info(
                       mva_minus_local[title][0],
-                      local_minus_mva[title][0].getStartTime() != mva_minus_local[title][0].getStartTime(),
-                      local_minus_mva[title][0].getLocation() != mva_minus_local[title][0].getLocation(),
+                      local_minus_mva[title][0].getStartTime() !== mva_minus_local[title][0].getStartTime(),
+                      local_minus_mva[title][0].getLocation() !== mva_minus_local[title][0].getLocation(),
                   )}<br/><br/>`
                 );
             } else if (local_minus_mva[title] === undefined && mva_minus_local[title].length > 0) {
@@ -99,7 +99,7 @@ function report_course_movements() {
 
     if (modified) {
         let msgHtml = htmlOutput.getContent(),
-            msgPlain = htmlOutput.getContent().replace(/\<br\/\>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
+            msgPlain = htmlOutput.getContent().replace(/<br\/>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
         Logger.log(`Sending a mail to ${MY_MAIL_ADDRESS}.`);
         GmailApp.sendEmail(MY_MAIL_ADDRESS, "MVA planning update", msgPlain, {
             htmlBody: msgHtml
