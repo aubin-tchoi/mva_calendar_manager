@@ -48,3 +48,45 @@ const get_calendar_diff = (left_calendar_events, right_calendar_events) => left_
         right_event => course_logistic_details(right_event) === course_logistic_details(left_event)
     )
 );
+
+const group_by_title = (calendar_events) =>
+    calendar_events.reduce(
+        (obj, event) => {
+            obj[event.getTitle()] = (obj[event.getTitle()] || []);
+            obj[event.getTitle()].push(event);
+            return obj
+        }, {}
+    ) || []
+;
+
+const log_course_modification = (title, old_event, new_event) => {
+    let location_change = (
+            (old_event.getLocation() !== new_event.getLocation()
+                || old_event.getDescription() !== new_event.getDescription())
+                ? `<br/>&nbsp;&nbsp;- Old location: ${old_event.getLocation()} ${old_event.getDescription()}<br/>
+            &nbsp;&nbsp;- New location: ${new_event.getLocation()} ${new_event.getDescription()}`
+                : ""
+        ),
+        time_change = (
+            old_event.getStartTime().toLocaleString() !== new_event.getStartTime().toLocaleString()
+                ? `<br/>&nbsp;&nbsp;- Old time: ${old_event.getStartTime()} to 
+            ${old_event.getEndTime()}<br/>
+            &nbsp;&nbsp;- New time: ${new_event.getStartTime()} to
+            ${new_event.getEndTime()}`
+                : ""
+        );
+    return `The following course was modified:<br/> &nbsp;${title}${location_change}${time_change}<br/><br/>`;
+}
+
+const update_course_event = (old_event, new_event) => {
+    old_event.setTime(
+        new_event.getStartTime(),
+        new_event.getEndTime()
+    );
+    old_event.setDescription(
+        new_event.getDescription()
+    );
+    old_event.setLocation(
+        new_event.getLocation()
+    );
+};
