@@ -1,7 +1,7 @@
 function get_course_info(event, show_dates = true, show_location = true) {
     const time_info = `, ${event.getStartTime().toLocaleString()}, ${event.getEndTime().toLocaleString()}`,
         location_info = `, ${event.getLocation()}`;
-    return `${event.getTitle()}${show_dates ? time_info : ""}${show_location ? location_info: ""}`;
+    return `${event.getTitle()}${show_dates ? time_info : ""}${show_location ? location_info : ""}`;
 }
 
 const course_logistic_details = event => event && `${event.getStartTime()}~${event.getLocation()}`;
@@ -63,18 +63,23 @@ function report_course_movements() {
         title => {
             if (local_minus_mva[title].length === 1 && mva_minus_local[title].length === 1) {
                 modified = true;
+                let location_change = (
+                    local_minus_mva[title][0].getLocation() !== mva_minus_local[title][0].getLocation()
+                        ? `<br/>&nbsp;&nbsp;- Old location: ${local_minus_mva[title][0].getLocation()}<br/>
+                        &nbsp;&nbsp;- New location: ${mva_minus_local[title][0].getLocation()}`
+                        : ""
+                    ),
+                    time_change = (
+                    local_minus_mva[title][0].getStartTime() !== mva_minus_local[title][0].getStartTime()
+                        ? `<br/>&nbsp;&nbsp;- Old time: ${local_minus_mva[title][0].getStartTime()} to 
+                        ${local_minus_mva[title][0].getEndTime()}<br/>
+                        &nbsp;&nbsp;- New time: ${mva_minus_local[title][0].getStartTime()} to
+                        ${mva_minus_local[title][0].getEndTime()}`
+                        : ""
+                    );
                 htmlOutput.append(
                     `The following course was modified:<br/>
-                &nbsp;- Old course: ${get_course_info(
-                      local_minus_mva[title][0],
-                      local_minus_mva[title][0].getStartTime() === mva_minus_local[title][0].getStartTime(),
-                      local_minus_mva[title][0].getLocation() === mva_minus_local[title][0].getLocation(),
-                  )}<br/>
-                &nbsp;- New course: ${get_course_info(
-                      mva_minus_local[title][0],
-                      local_minus_mva[title][0].getStartTime() !== mva_minus_local[title][0].getStartTime(),
-                      local_minus_mva[title][0].getLocation() !== mva_minus_local[title][0].getLocation(),
-                  )}<br/><br/>`
+                &nbsp;${title}${location_change}${time_change}<br/><br/>`
                 );
             } else if (local_minus_mva[title] === undefined && mva_minus_local[title].length > 0) {
                 modified = true;
