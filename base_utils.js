@@ -61,10 +61,11 @@ const group_by_title = (calendar_events) =>
 
 const log_course_modification = (title, old_event, new_event) => {
     let location_change = (
-            (old_event.getLocation() !== new_event.getLocation()
-                || old_event.getDescription() !== new_event.getDescription())
-                ? `<br/>&nbsp;&nbsp;- Old location: ${old_event.getLocation()} ${old_event.getDescription()}<br/>
-            &nbsp;&nbsp;- New location: ${new_event.getLocation()} ${new_event.getDescription()}`
+            (
+                old_event.getLocation() !== new_event.getLocation()
+                || old_event.getDescription() !== new_event.getDescription()
+            ) ? `<br/>&nbsp;&nbsp;- Old location: ${old_event.getLocation()} ${old_event.getDescription().replace(/\\n|<br>/gi, " ")}
+                 <br/>&nbsp;&nbsp;- New location: ${new_event.getLocation()} ${new_event.getDescription().replace(/\\n|<br>/gi, " ")}`
                 : ""
         ),
         time_change = (
