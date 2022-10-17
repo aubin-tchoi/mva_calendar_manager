@@ -2,7 +2,7 @@
  * List of the courses you wish to follow.
  * You do not need an exact spelling, try to stay close to the title in the planning (look out for french/english titles).
  */
- const COURSES = [
+const COURSES = [
     "Reinforcement Learning",
     "Computational optimal transport",
     "Apprentissage profond et traitement du signal",
@@ -12,9 +12,9 @@
     "Analyse topologique de données",
     "Image denoising",
     "Computational statistics",
-    "Responsible Machine Learning",
     "Méthodes mathématiques pour les neurosciences"
 ];
+
 
 /**
  * ID of the MVA Google Calendar.

@@ -2,7 +2,7 @@
  * Script that imports the courses events from the mva planning to your local calendar.
  *
  * Specify the courses you wish to take in the COURSES array in constants.gs.
- * You do not need an exact spelling, try to stay close to the title in the planning (look out for French/english titles).
+ * You do not need an exact spelling, try to stay close to the title in the planning (look out for french/english titles).
  *
  * If you get a getProperty of null on mva_calendar.getEvents,
  * it means the mva_agenda_id is incorrect or not accessible by you.
