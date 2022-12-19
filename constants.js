@@ -3,16 +3,13 @@
  * You do not need an exact spelling, try to stay close to the title in the planning (look out for french/english titles).
  */
 const COURSES = [
-    "Reinforcement Learning",
-    "Computational optimal transport",
-    "Apprentissage profond et traitement du signal",
-    "Foundations of distributed and large scale computing",
-    "Convex optimization",
-    "Introduction to statistical learning",
-    "Analyse topologique de données",
-    "Image denoising",
-    "Computational statistics",
-    "Méthodes mathématiques pour les neurosciences"
+    "Modélisation en neuroscience",
+    "Apprentissage pour les séries temporelles",
+    "Nuages de points et modélisation 3D",
+    "Problèmes inverses et imagerie",
+    "Sequential learning",
+    "Deep learning in practice",
+    "Deep learning for medical imaging",
 ];
 
 
