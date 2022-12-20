@@ -1,10 +1,9 @@
-
-
 function count_incompatibilities() {
     const mva_calendar = retrieve_mva_calendar(),
         now = new Date(),
         sixMonthsFromNow = new Date(now.getTime() + 6 * 2628000 * 1000);
 
+    // computing a derivative for the planning: +1 (resp. -1) at a time where a course starts (resp. ends)
     const derivative = COURSES.reduce(
         (acc, course_name) => {
             mva_calendar.getEvents(
@@ -21,21 +20,33 @@ function count_incompatibilities() {
                 }
             );
             return acc;
-        },
-        {}
+        }, {}
     );
 
+    // sorting the keys in an array
     const sortable = Object.keys(derivative)
-        .sort((a, b) => a - b);
-    
+        .sort((a, b) => new Date(a) - new Date(b));
+
+    // computing the cumulative sum of derivative: it indicates the ongoing number of courses at each time steps
     let cumsum = sortable.reduce(
-      (acc, date, idx) => {
-        acc[idx] += derivative[date] + (idx > 0 ? acc[idx - 1] : 0);
-        return acc;
-      },
-      new Array(sortable.length).fill(0)
+        (acc, date, idx) => {
+            acc[idx] += derivative[date] + (idx > 0 ? acc[idx - 1] : 0);
+            return acc;
+        },
+        new Array(sortable.length).fill(0)
     );
 
-    let overlaps = sortable.map((date, idx) => `${date}: ${cumsum[idx]}`).filter((_, idx) => cumsum[idx] >= 2);
-    overlaps.forEach(Logger.log);
+    const format_date = date => date.replace(":00 GMT+0100 (Central European Standard Time)", "");
+    
+    // cumsum[idx] is the number of courses taking place simultaneously on time step sortable[idx]
+    sortable.map(
+        (date, idx) => idx < sortable.length - 1 ?
+        `${format_date(date)} to ${format_date(sortable[idx + 1])}:\n - ${COURSES.map(course_name => mva_calendar.getEvents(
+            new Date(date),
+            new Date(sortable[idx + 1]), {
+                author: "mvaenscachan@gmail.com",
+                search: course_name
+            })).flat().map(ev => ev.getTitle()).join("\n - ")}` :
+        ""
+    ).filter((_, idx) => cumsum[idx] >= 2).forEach(Logger.log);
 }
