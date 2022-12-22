@@ -14,10 +14,11 @@ function import_courses() {
         local_calendar = retrieve_local_calendar(),
         now = new Date(),
         sixMonthsFromNow = new Date(now.getTime() + 6 * 2628000 * 1000);
-    let counter = 0;
+    let global_counter = 0;
 
     COURSES.forEach(
         course_name => {
+            let course_counter = 0;
             mva_calendar.getEvents(
                 now,
                 sixMonthsFromNow, {
@@ -35,12 +36,14 @@ function import_courses() {
                             location: ev.getLocation(),
                         }
                     );
-                    counter++;
+                    course_counter++;
                 }
-            )
+            );
+            Logger.log(`Found ${course_counter} events for course ${course_name}.\n`);
+            global_counter += course_counter;
         }
     );
-    Logger.log(`Added ${counter} calendar events.`);
+    Logger.log(`Added ${global_counter} calendar events.`);
 }
 
 
