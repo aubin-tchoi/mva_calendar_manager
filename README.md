@@ -7,9 +7,15 @@ sort of alert.
 You can use the script found here to extract selectively the Calendar events of the courses you wish to take, to delete
 the events relative to some courses, or to get a mail alert if a course was to be updated in the shared calendar.
 
-## How to use
+## Install
 
 - Create a project in Google Apps Script and copy all the files here in `.gs` files.
+
+OR
+- Use `install.sh` (not tested thoroughly though).
+
+## How to use
+
 - Update the config (see [Parameters](#Parameters)).
 - Run any of the entry-point functions mentioned below using the online IDE (notice that you can choose the function to
   run).
