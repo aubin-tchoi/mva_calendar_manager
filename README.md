@@ -35,8 +35,8 @@ On your first use you will have to grant the script authorizations to the servic
   between the two calendars. You might want to bind this one to a daily trigger.
 - `count_incompatibilities` in `incompatibilities.js`: logs all the overlaps between courses registered in array `COURSES`.
 
-> You might want to trigger function `report_course_movements` on a regular basis. To do so add a trigger using the
-> "Triggers" menu on the left bar of the Apps Script online IDE.
+> You might want to trigger function `report_course_movements` on a regular basis. To do so either add a trigger using the
+> "Triggers" menu on the left bar of the Apps Script online IDE, or run function `createWeeklyTrigger` in `sync_changes.js`.
 
 ### Parameters
 

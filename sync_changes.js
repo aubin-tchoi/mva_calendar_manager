@@ -73,3 +73,13 @@ function report_course_movements() {
         });
     }
 }
+
+
+function createWeeklyTrigger() {
+    // Trigger every Monday at 07:00.
+    ScriptApp.newTrigger('report_course_movements')
+        .timeBased()
+        .onWeekDay(ScriptApp.WeekDay.MONDAY)
+        .atHour(7)
+        .create();
+}
