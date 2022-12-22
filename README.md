@@ -55,3 +55,12 @@ content from within the file. This is actually while the file `base_utils.js` is
 
 You can use `clasp` to sync your local clone of the project with the Apps Script project:
 see https://developers.google.com/apps-script/guides/clasp 
+
+If you want to do everything in command line (run functions, get logs, add triggers) you can do so using `clasp`,
+however you need to link the project to a GCP and deal with API credentials.
+
+- To link the project to a GCP, you can create one, copy its project number and paste it in the dedicated section
+of your Apps Script project's settings.
+- To handle API credentials (required to use `clasp run <function_name>`) you will have to log in locally (copy your
+`.clasprc.json`) in the project folder and add the following urls to the `scope` variable: `https://mail.google.com/ https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.scriptapp`. Then run
+`clasp login --creds .clasprc.json` (not 100% guaranteed that will directly work, there might be a few steps I forgot about).
