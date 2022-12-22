@@ -1,3 +1,16 @@
+/**
+ * Script that counts the overlaps between courses taken from array COURSES by reading the mva calendar.
+ * Does not take into account the travel time between course locations,
+ * only counts the times where 2 or more courses simultanously take place.
+ *
+ * Specify the courses you wish to take in the COURSES array in constants.gs.
+ * You do not need an exact spelling, try to stay close to the title in the planning (look out for french/english titles).
+ *
+ * If you get a getProperty of null on mva_calendar.getEvents,
+ * it most likely means the mva_agenda_id is incorrect or not accessible by you.
+ */
+
+
 function count_incompatibilities() {
     const mva_calendar = retrieve_mva_calendar(),
         now = new Date(),

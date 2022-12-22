@@ -27,6 +27,7 @@ On your first use you will have to grant the script authorizations to the servic
   calendar.
 - `report_course_movements` in `sync_changes.js`: sends a mail if any of the events relative to a course tracked differs
   between the two calendars. You might want to bind this one to a daily trigger.
+- `count_incompatibilities` in `incompatibilities.js`: logs all the overlaps between courses registered in array `COURSES`.
 
 > You might want to trigger function `report_course_movements` on a regular basis. To do so add a trigger using the
 > "Triggers" menu on the left bar of the Apps Script online IDE.
