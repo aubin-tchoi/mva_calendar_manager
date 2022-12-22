@@ -3,13 +3,13 @@
  * You do not need an exact spelling, try to stay close to the title in the planning (look out for french/english titles).
  */
 const COURSES = [
-    "Modélisation en neuroscience",
-    "Apprentissage pour les séries temporelles",
+    // "Apprentissage pour les séries temporelles",
     "Nuages de points et modélisation 3D",
-    "Problèmes inverses et imagerie",
     "Sequential learning",
     "Deep learning in practice",
-    "Deep learning for medical imaging",
+    "Algorithms for speech and natural language processing",
+    "Discrete inference and learning",
+    "Approches géométriques en apprentissage statistique"
 ];
 
 
