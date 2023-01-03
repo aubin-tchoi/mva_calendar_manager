@@ -9,9 +9,10 @@ the events relative to some courses, or to get a mail alert if a course was to b
 
 ## Install
 
-- Create a project in Google Apps Script and copy all the files here in `.gs` files.
+- Create a project in Google Apps Script and copy all the files under `src` (replace `.js` files by `.gs` files) files.
 
 OR
+
 - Use `install.sh` (not tested thoroughly though).
 
 ## How to use
@@ -33,10 +34,12 @@ On your first use you will have to grant the script authorizations to the servic
   calendar.
 - `report_course_movements` in `sync_changes.js`: sends a mail if any of the events relative to a course tracked differs
   between the two calendars. You might want to bind this one to a daily trigger.
-- `count_incompatibilities` in `incompatibilities.js`: logs all the overlaps between courses registered in array `COURSES`.
+- `count_incompatibilities` in `incompatibilities.js`: logs all the overlaps between courses registered in
+  array `COURSES`.
 
-> You might want to trigger function `report_course_movements` on a regular basis. To do so either add a trigger using the
-> "Triggers" menu on the left bar of the Apps Script online IDE, or run function `createWeeklyTrigger` in `sync_changes.js`.
+> You might want to trigger function `report_course_movements` on a regular basis. To do so either add a trigger using
+> the "Triggers" menu on the left bar of the Apps Script online IDE, or run function `createWeeklyTrigger`
+> in `sync_changes.js`.
 
 ### Parameters
 
@@ -54,13 +57,17 @@ you can access the content of any file, in file `b` only the content of files `b
 content from within the file. This is actually while the file `base_utils.js` is not named `utils.js`.
 
 You can use `clasp` to sync your local clone of the project with the Apps Script project:
-see https://developers.google.com/apps-script/guides/clasp 
+see https://developers.google.com/apps-script/guides/clasp
 
 If you want to do everything in command line (run functions, get logs, add triggers) you can do so using `clasp`,
 however you need to link the project to a GCP and deal with API credentials.
 
 - To link the project to a GCP, you can create one, copy its project number and paste it in the dedicated section
-of your Apps Script project's settings.
+  of your Apps Script project's settings.
 - To handle API credentials (required to use `clasp run <function_name>`) you will have to log in locally (copy your
-`.clasprc.json`) in the project folder and add the following urls to the `scope` variable: `https://mail.google.com/ https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.scriptapp`. Then run
-`clasp login --creds .clasprc.json` (not 100% guaranteed that will directly work, there might be a few steps I forgot about).
+  `.clasprc.json`) in the project folder and add the following urls to its `scope`
+  variable: `https://mail.google.com/ https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.scriptapp`
+  . Also add these urls to the manifest (`appsscript.json`) in the `oauthScope` array (
+  see: https://developers.google.com/apps-script/manifest and https://developers.google.com/apps-script/concepts/scopes)
+  Then run `clasp login --creds .clasprc.json` (not 100% guaranteed that will directly work, there might be a few steps
+  I forgot about).
