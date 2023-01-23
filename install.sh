@@ -1,3 +1,5 @@
+#!/bin/bash
+
 pushd src
   # installing clasp to sync files with google apps script
   npm install @google/clasp -g
