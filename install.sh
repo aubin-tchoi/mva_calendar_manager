@@ -10,4 +10,6 @@ pushd src
   echo | clasp create
   # pushing the files in the project just created
   clasp push
+  # opening the project in your favorite browser
+  open https://script.google.com/home/projects/$(python -c "import sys, json; print(json.load(sys.stdin)['scriptId'])" < .clasp.json)
 popd
