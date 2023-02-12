@@ -9,11 +9,18 @@ the events relative to some courses, or to get a mail alert if a course was to b
 
 ## Install
 
-- Create a project in Google Apps Script and copy all the files under `src` (replace `.js` files by `.gs` files) files.
+- Create a project in Google Apps Script (`https://script.google.com/home/`) and copy all the files under `src` (replace `.js` files by `.gs` files) files.
 
 OR
 
-- Use `install.sh` (not tested thoroughly though).
+- Copy paste the following command (Unix or Cygwin only, requires `npm`, not tested thoroughly though):
+
+```
+git clone https://github.com/aubin-tchoi/mva_calendar_manager &&
+cd mva_calendar_manager && bash install.sh ||
+echo "Please run install.sh manually (Unix-only, otherwise create the project as described above)" &&
+open "https://script.google.com/home/"
+```
 
 ## How to use
 
