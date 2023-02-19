@@ -8,7 +8,7 @@ function report_course_movements() {
         local_courses = get_courses_from_calendar(local_calendar, COURSES),
         local_minus_mva = group_by_title(get_calendar_diff(local_courses, mva_courses)),
         mva_minus_local = group_by_title(get_calendar_diff(mva_courses, local_courses));
-
+    // TODO: updates courses in the next 6 months, notify about the next week
     let modified = false,
         htmlOutput = HtmlService.createHtmlOutput(MAIL_CONTENT);
 
