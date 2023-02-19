@@ -12,6 +12,7 @@ const COURSES = [
     "Approches géométriques en apprentissage statistique"
 ];
 
+// TODO: make it resiliant to exceptional events (seminars, school break, ...)
 
 /**
  * ID of the MVA Google Calendar.
